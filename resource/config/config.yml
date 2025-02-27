@@ -1,1 +1,15 @@
 appname: social-api
+
+db:
+  mysql:
+    socialapi:
+      host: "localhost"  # Change to your database host
+      port: 3306          # MySQL default port
+      user: "root"
+      password: "root"
+      database: "socialapi"
+      charset: "utf8mb4"
+      max_open_connections: 10  # Max open connections
+      max_idle_connections: 2  # Max idle connections
+      conn_max_lifetime: 300    # Connection max lifetime in seconds
+  
