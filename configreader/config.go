@@ -57,7 +57,7 @@ func loadConfig() (*Config, error) {
 
 func GetConfig() (*Config, error) {
 	if config == nil {
-		var err error = nil
+		var err error
 		config, err = loadConfig()
 		return config, err
 	}

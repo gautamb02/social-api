@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gautamb02/social-api/configreader"
+	"github.com/gautamb02/social-api/server"
 )
 
 func main() {
@@ -17,6 +18,9 @@ func main() {
 		log.Fatal("%w", err)
 		return
 	}
-	log.Printf("%s", config.DB.MySQl.SocialAPIDB.Host)
+	// log.Printf("%s", config.DB.MySQl.SocialAPIDB.Host)
 
+	server := server.Server{Config: config}
+	server.Setup()
+	server.Start()
 }

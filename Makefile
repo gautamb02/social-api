@@ -6,6 +6,8 @@ CONFIG_FILE=./resource/config/config.yml
 run:
 	go run main.go --config=${CONFIG_FILE}
 
+make tidy:
+	go mod tidy
 # Target to build the Go program
 build:
 	go build -o ${BINARY_NAME} main.go
