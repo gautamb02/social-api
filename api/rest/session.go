@@ -2,9 +2,12 @@ package rest
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"net/http"
 	"strings"
 
+	"github.com/gautamb02/social-api/shared/validator"
 	"github.com/go-chi/render"
 )
 
@@ -44,17 +47,18 @@ func (c *SessionContext) Param(key string) string {
 func (c *SessionContext) BindBody(object interface{}) error {
 	// Read the request body
 	if err := render.DecodeJSON(c.Request.Body, object); err != nil {
+		fmt.Printf("Error: %s", err.Error())
 		return err
 	}
 
-	// validationErrors, _ := validator.IsValid(obj)
-	// if len(validationErrors) > 0 {
-	// 	validationErrMsg := "falied to validate the request for fields"
-	// 	for _, verr := range validationErrors {
-	// 		validationErrMsg += fmt.Sprintf(" - %s", verr.Field)
-	// 	}
-	// 	return errors.New(validationErrMsg)
-	// }
+	validationErrors, _ := validator.IsValid(object)
+	if len(validationErrors) > 0 {
+		validationErrMsg := "falied to validate the request for fields"
+		for _, verr := range validationErrors {
+			validationErrMsg += fmt.Sprintf(" - %s", verr.Field)
+		}
+		return errors.New(validationErrMsg)
+	}
 	return nil
 }
 
